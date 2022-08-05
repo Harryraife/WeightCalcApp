@@ -71,13 +71,15 @@ def update_lifter(id):
     lifter_to_update = Lifter.query.get(id)
     form = NewUser()
     if form.validate_on_submit():
-        first_name, last_name = form.first_name.data, form.last_name.data
+        first_name, last_name, username = form.first_name.data, form.last_name.data, form.username.data
         lifter_to_update.first_name = first_name
         lifter_to_update.last_name = last_name
+        lifter_to_update.username = username
         db.session.commit()
         return redirect(url_for('view_all_users'))
     form.first_name.data = lifter_to_update.first_name
     form.last_name.data = lifter_to_update.last_name
+    form.username.data = lifter_to_update.username
     return render_template('add_lifter.html', form=form)
 
 #Update a lift already logged
